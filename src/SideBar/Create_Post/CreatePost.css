@@ -1,0 +1,90 @@
+.Upload-Container {
+  width: 500px;
+  background-color: white;
+  border-radius: 5px;
+  height: 400px;
+  padding-bottom: 10px;
+}
+.CreatePost-Container {
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  display: flex;
+}
+.closeIcon {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.Uploaded-img {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 25px;
+}
+.Uploaded-img img {
+  width: 450px;
+  height: 300px;
+}
+.Upload-btn {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+.Un-UploadImg {
+  width: 100%;
+  margin: 20px;
+  color: black;
+  font-size: 20px;
+  display: flex;
+  background-color: rgb(200, 200, 200);
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  border: 1px solid black;
+  border-style: dotted;
+}
+.Crop-Container {
+  width: 600px;
+  background-color: white;
+  border-radius: 5px;
+  height: 400px;
+  padding: 20px;
+}
+.FilterList {
+  width: 230px;
+  height: 350px;
+  display: flex;
+  margin: 5px;
+  overflow: scroll;
+  flex-wrap: wrap;
+}
+#preview-filter-img {
+  width: 370px;
+  height: 350px;
+  margin-top: 10px;
+}
+#filter-image {
+  width: 95px;
+  margin: 5px;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+.AddedFilter-btn {
+  width: 100%;
+  margin: 20px 0px;
+  justify-content: space-around;
+  display: flex;
+}
+.post-container {
+  width: 100%;
+}
+.Create-Icon {
+  display: flex;
+  align-items: center;
+}
+.Create-Icon p {
+  margin: 0;
+}
