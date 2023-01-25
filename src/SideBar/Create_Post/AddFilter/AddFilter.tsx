@@ -1,39 +1,71 @@
-import { useState } from 'react';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useState, useRef } from 'react';
 import '../Filter.css';
 import '../CreatePost.css';
 import { FilterList } from './FilterList';
 import { Caption } from './Caption';
+import domtoimage from 'dom-to-image';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-export const AddFilter = ({ image, setIsStatus, handleNewPost }: any) => {
+export const AddFilter = ({ image, setIsStatus, setFinalImage, handleNewPost }: any) => {
+  const ref = useRef(null);
   const [filteredImg, setFilteredImg] = useState('');
+  const [caption, setCaption] = useState('');
   const [isCaptionOpened, setIsCaptionOpened] = useState(false);
+
+  function sendNewPost() {
+    handleNewPost(caption);
+    setIsCaptionOpened((prev) => !prev);
+  }
+
+  async function setImageFile() {
+    const image = await domToImage();
+    setFinalImage(image);
+    setIsStatus((prev: number) => prev + 1);
+    setIsCaptionOpened((prev) => !prev);
+  }
+
+  function domToImage() {
+    const result = domtoimage
+      .toPng(ref.current)
+      .then((dataUrl) => {
+        return dataUrl;
+      })
+      .catch(function (error) {
+        console.error('oops, something went wrong!', error);
+      });
+    return result;
+  }
+
   return (
     <div className="Crop-Container">
-      <div style={{ display: 'flex', gap: '8px' }}>
-        <img id="preview-filter-img" className={filteredImg} src={image} alt="image" />
+      <div className="Upload-menu-bar">
+        {image && (
+          <ArrowBackIcon
+            sx={{ color: '#1565C0' }}
+            onClick={() => {
+              setIsStatus((prev: number) => prev - 1);
+            }}
+          />
+        )}
+        <p style={{ color: 'black' }}>Crop</p>
+
+        {image && isCaptionOpened ? (
+          <p className="next-btn" onClick={sendNewPost}>
+            Submit
+          </p>
+        ) : (
+          <p className="next-btn" onClick={setImageFile}>
+            Next
+          </p>
+        )}
+      </div>
+      <div style={{ display: 'flex', gap: '8px', padding: '15px' }}>
+        <img id="preview-filter-img" ref={ref} className={filteredImg} src={image} alt="image" />
         {!isCaptionOpened ? (
           <FilterList image={image} setFilteredImg={setFilteredImg} />
         ) : (
-          <Caption handleNewPost={handleNewPost} filteredImg={filteredImg} />
+          <Caption caption={caption} setCaption={setCaption} filteredImg={filteredImg} />
         )}
-      </div>
-      <div className="AddedFilter-btn">
-        <ArrowBackIosNewIcon
-          sx={{ color: '#1565C0' }}
-          onClick={() => {
-            setIsStatus((prev: number) => prev - 1);
-            setIsCaptionOpened((prev: any) => !prev);
-          }}
-        />
-        <ArrowForwardIosIcon
-          sx={{ color: '#1565C0' }}
-          onClick={() => {
-            setIsCaptionOpened((prev) => !prev);
-            setIsStatus((prev: number) => prev + 1);
-          }}
-        />
       </div>
     </div>
   );

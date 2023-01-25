@@ -3,26 +3,43 @@ import CloseIcon from '@mui/icons-material/Close';
 import './CreatePost.css';
 import './Filter.css';
 import { useState } from 'react';
+import { useAppDispatch } from '../../Store/hook';
 import { UploadFile } from './UploadFile';
 import { AddFilter } from './AddFilter/AddFilter';
 import { CropImg } from './CropImg';
+import { initiateNewPost } from '../../Store/slice';
+import axios from 'axios';
 
 export const Create_Post = () => {
   const [isBackDropOpen, setIsBackDropOpen] = useState(false);
-  const [post, setPost] = useState([]);
   const [isStatus, setIsStatus] = useState(0);
   const [image, setImage] = useState('');
+  const [finalImage, setFinalImage] = useState<File>();
+  const dispatch = useAppDispatch();
 
   function handleImage(event: any) {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
     }
   }
-  function handleNewPost(className: string, caption: string) {
-    const newPost = { className: className, caption: caption, image: image };
-    setPost((prev): any => {
-      return [newPost, ...prev];
-    });
+
+  async function handleNewPost(caption: string) {
+    const formData = new FormData();
+    formData.append('file', finalImage as Blob);
+    console.log(formData);
+
+    const imageUpload = await axios
+      .post('http://localhost:4000/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then((data) => {
+        return data;
+      });
+    console.log(imageUpload);
+
+    // dispatch(initiateNewPost());
     setIsBackDropOpen((prev) => !prev);
     setIsStatus(0);
     setImage('');
@@ -35,13 +52,14 @@ export const Create_Post = () => {
           handleImage={handleImage}
           setIsBackDropOpen={setIsBackDropOpen}
           image={image}
+          setImage={setImage}
           setIsStatus={setIsStatus}
         />
       );
     } else if (isStatus === 1) {
-      return <CropImg setIsStatus={setIsStatus} />;
+      return <CropImg image={image} setIsStatus={setIsStatus} />;
     } else if (isStatus === 2) {
-      return <AddFilter image={image} setIsStatus={setIsStatus} />;
+      return <AddFilter image={image} setFinalImage={setFinalImage} setIsStatus={setIsStatus} />;
     } else if (isStatus === 3) {
       return (
         <AddFilter
@@ -122,17 +140,6 @@ export const Create_Post = () => {
           <div className="CreatePost-Container">{renderComp()}</div>
         </div>
       </Modal>
-      <div className="post-container">
-        {post.length > 0 &&
-          post.map((data: any) => {
-            return (
-              <div key={data.className} className="post-card">
-                <img style={{ width: '200px' }} src={data.image} className={data.className} />
-                <p>{data.caption}</p>
-              </div>
-            );
-          })}
-      </div>
     </div>
   );
 };

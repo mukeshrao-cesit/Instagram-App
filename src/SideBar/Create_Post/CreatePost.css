@@ -2,7 +2,7 @@
   width: 500px;
   background-color: white;
   border-radius: 5px;
-  height: 400px;
+  height: fit-content;
   padding-bottom: 10px;
 }
 .CreatePost-Container {
@@ -46,11 +46,10 @@
   border-style: dotted;
 }
 .Crop-Container {
-  width: 600px;
+  width: 700px;
   background-color: white;
   border-radius: 5px;
-  height: 400px;
-  padding: 20px;
+  height: fit-content;
 }
 .FilterList {
   width: 230px;
@@ -61,13 +60,14 @@
   flex-wrap: wrap;
 }
 #preview-filter-img {
-  width: 370px;
+  width: 440px;
   height: 350px;
   margin-top: 10px;
 }
 #filter-image {
   width: 95px;
   margin: 5px;
+  height: 104px;
 }
 ::-webkit-scrollbar {
   display: none;
@@ -87,4 +87,45 @@
 }
 .Create-Icon p {
   margin: 0;
+}
+.Upload-menu-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+  border-bottom: 1px solid silver;
+}
+.Upload-menu-bar p {
+  margin: 0;
+}
+.center-title {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin: 0;
+}
+.next-btn {
+  color: #1565c0;
+}
+.crop-preview-img {
+  width: 450px;
+  height: 270px;
+}
+.crop-func {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+.crop-btn {
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  justify-content: center;
+}
+.caption-container {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.caption-container textarea {
+  height: 200px !important;
 }

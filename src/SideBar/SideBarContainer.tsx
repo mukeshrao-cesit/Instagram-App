@@ -3,7 +3,7 @@ import { Create_Post } from './Create_Post/Create_Post';
 export const SideBarContainer = () => {
   return (
     <div>
-      <img src="../assets/instagram-wordmark.svg" alt="logo" />
+      {/* <img src="../assets/instagram-wordmark.svg" alt="logo" /> */}
       <ul>
         <li>Home</li>
         <li>Search</li>

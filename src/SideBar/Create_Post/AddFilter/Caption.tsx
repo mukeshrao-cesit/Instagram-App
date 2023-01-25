@@ -1,25 +1,17 @@
 import { TextField } from '@mui/material';
-import React, { useState } from 'react';
+import '../CreatePost.css';
 
-export const Caption = ({ handleNewPost, filteredImg, setIsBackDropOpen }: any) => {
-  const [caption, setCaption] = useState('');
+export const Caption = ({ caption, setCaption }: any) => {
   return (
-    <div>
-      <h1>Caption</h1>
+    <div className="caption-container">
       <TextField
-        id="outlined-basic"
+        id="outlined-multiline-flexible"
+        sx={{ height: '100px' }}
         value={caption}
-        label="Caption"
+        placeholder="Write a caption..."
+        multiline
         onChange={(e) => setCaption(e.target.value)}
-        variant="outlined"
       />
-      <button
-        onClick={() => {
-          handleNewPost(filteredImg, caption);
-        }}
-      >
-        Submit
-      </button>
     </div>
   );
 };

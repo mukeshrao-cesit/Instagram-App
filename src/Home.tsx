@@ -1,8 +1,7 @@
-import React from 'react';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { SideBarContainer } from './SideBar/SideBarContainer';
+import { MiddleComp } from './Middle_Container/MiddleComp';
 
 export const Home = () => {
   return (
@@ -12,7 +11,7 @@ export const Home = () => {
           <SideBarContainer />
         </Grid>
         <Grid item xs={5}>
-          <p>Hello2</p>
+          <MiddleComp />
         </Grid>
         <Grid item xs>
           <p>Hello3</p>
