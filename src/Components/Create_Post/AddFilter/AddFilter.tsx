@@ -1,9 +1,10 @@
 import { useState, useRef } from 'react';
-import '../Filter.css';
+import './Filter.css';
 import '../CreatePost.css';
 import { FilterList } from './FilterList';
-import { Caption } from './Caption';
-import domtoimage from 'dom-to-image';
+import { Caption } from '../Caption';
+import { domToImage } from '../../resusable/domToImage';
+
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export const AddFilter = ({ image, setIsStatus, setFinalImage, handleNewPost }: any) => {
@@ -18,22 +19,11 @@ export const AddFilter = ({ image, setIsStatus, setFinalImage, handleNewPost }: 
   }
 
   async function setImageFile() {
-    const image = await domToImage();
+    const image = await domToImage(ref.current);
+
     setFinalImage(image);
     setIsStatus((prev: number) => prev + 1);
     setIsCaptionOpened((prev) => !prev);
-  }
-
-  function domToImage() {
-    const result = domtoimage
-      .toPng(ref.current)
-      .then((dataUrl) => {
-        return dataUrl;
-      })
-      .catch(function (error) {
-        console.error('oops, something went wrong!', error);
-      });
-    return result;
   }
 
   return (

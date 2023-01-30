@@ -1,5 +1,4 @@
-import React from 'react';
-import filterValues, { IFilterValues } from '../Filter';
+import filterValues, { IFilterValues } from './Filter';
 export const FilterList = ({ image, setFilteredImg }: any) => {
   return (
     <div className="FilterList">

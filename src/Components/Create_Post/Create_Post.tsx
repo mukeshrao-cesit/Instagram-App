@@ -1,21 +1,18 @@
 import Modal from '@mui/material/Modal';
 import CloseIcon from '@mui/icons-material/Close';
 import './CreatePost.css';
-import './Filter.css';
+import './AddFilter/Filter.css';
 import { useState } from 'react';
-import { useAppDispatch } from '../../Store/hook';
 import { UploadFile } from './UploadFile';
 import { AddFilter } from './AddFilter/AddFilter';
 import { CropImg } from './CropImg';
-import { initiateNewPost } from '../../Store/slice';
-import axios from 'axios';
+import { createNewPost, uploadImage } from '../Http-request/index';
 
 export const Create_Post = () => {
-  const [isBackDropOpen, setIsBackDropOpen] = useState(false);
-  const [isStatus, setIsStatus] = useState(0);
-  const [image, setImage] = useState('');
-  const [finalImage, setFinalImage] = useState<File>();
-  const dispatch = useAppDispatch();
+  const [isBackDropOpen, setIsBackDropOpen] = useState<boolean>(false);
+  const [isStatus, setIsStatus] = useState<number>(0);
+  const [image, setImage] = useState<string>('');
+  const [finalImage, setFinalImage] = useState<File | Blob>();
 
   function handleImage(event: any) {
     if (event.target.files && event.target.files[0]) {
@@ -24,25 +21,29 @@ export const Create_Post = () => {
   }
 
   async function handleNewPost(caption: string) {
+    const imgExtension = finalImage?.type.slice(6);
+
+    //changing image file to form data
     const formData = new FormData();
-    formData.append('file', finalImage as Blob);
-    console.log(formData);
+    const file = new File([finalImage], `${finalImage?.size}.${imgExtension}`);
+    formData.append('image', file);
 
-    const imageUpload = await axios
-      .post('http://localhost:4000/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
-      .then((data) => {
-        return data;
-      });
-    console.log(imageUpload);
+    const imageUpload = await uploadImage(formData);
 
-    // dispatch(initiateNewPost());
-    setIsBackDropOpen((prev) => !prev);
-    setIsStatus(0);
-    setImage('');
+    if (imageUpload?.data.length > 0) {
+      //post details format
+      const postDetails = {
+        userId: 'mukeshRao',
+        description: caption,
+        attachments: imageUpload.data
+      };
+      const postUpload = await createNewPost(postDetails);
+      if (postUpload?.data?.meta?.code === 200) {
+        setIsBackDropOpen((prev) => !prev);
+        setIsStatus(0);
+        setImage('');
+      }
+    }
   }
 
   function renderComp() {

@@ -1,5 +1,4 @@
-import React from 'react';
-import { PostList } from './PostListContainer/PostList';
+import { PostList } from '../Components/PostListContainer/PostList';
 
 export const MiddleComp = () => {
   return (

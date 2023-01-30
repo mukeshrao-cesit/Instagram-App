@@ -1,4 +1,4 @@
-import { Create_Post } from './Create_Post/Create_Post';
+import { Create_Post } from '../Components/Create_Post/Create_Post';
 
 export const SideBarContainer = () => {
   return (

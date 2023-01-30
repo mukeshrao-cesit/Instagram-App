@@ -1,5 +1,5 @@
 import { TextField } from '@mui/material';
-import '../CreatePost.css';
+import './CreatePost.css';
 
 export const Caption = ({ caption, setCaption }: any) => {
   return (

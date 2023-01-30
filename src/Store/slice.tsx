@@ -1,22 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
 interface postState {
   post: [];
+  isNewPostCreated: boolean;
 }
 const initialState: postState = {
-  post: []
+  post: [],
+  isNewPostCreated: false
 };
 
 const postSlice = createSlice({
   name: 'postList',
   initialState,
   reducers: {
-    initiateNewPost: (state: any, action: any) => {
-      state.post = [action.payload, ...state.post];
-      console.log(state.post);
+    newPostCreated: (state: any, action: any) => {
+      return (state.isNewPostCreated = action.payload);
     }
   }
 });
 
-export const { initiateNewPost } = postSlice.actions;
+export const { newPostCreated } = postSlice.actions;
 
 export default postSlice.reducer;

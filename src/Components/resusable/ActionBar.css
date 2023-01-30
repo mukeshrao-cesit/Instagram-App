@@ -1,0 +1,13 @@
+.action-bar-container {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+.left-bar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
