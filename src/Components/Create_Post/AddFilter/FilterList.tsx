@@ -4,7 +4,7 @@ export const FilterList = ({ image, setFilteredImg }: any) => {
     <div className="FilterList">
       {filterValues.map((elem: IFilterValues) => {
         return (
-          <div key={elem.name} onClick={() => setFilteredImg(elem.class)}>
+          <div style={{ margin: '5px' }} key={elem.name} onClick={() => setFilteredImg(elem.class)}>
             <img id="filter-image" src={image} className={elem.class} />
           </div>
         );

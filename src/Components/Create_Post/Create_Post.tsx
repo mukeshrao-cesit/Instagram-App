@@ -7,12 +7,17 @@ import { UploadFile } from './UploadFile';
 import { AddFilter } from './AddFilter/AddFilter';
 import { CropImg } from './CropImg';
 import { createNewPost, uploadImage } from '../Http-request/index';
+import { useAppDispatch } from '../Store/hook';
+import { newPostCreated } from '../Store/slice';
+import { Caption } from './Caption';
 
 export const Create_Post = () => {
   const [isBackDropOpen, setIsBackDropOpen] = useState<boolean>(false);
   const [isStatus, setIsStatus] = useState<number>(0);
   const [image, setImage] = useState<string>('');
+  const [filterName, setFilterName] = useState('');
   const [finalImage, setFinalImage] = useState<File | Blob>();
+  const dispatch = useAppDispatch();
 
   function handleImage(event: any) {
     if (event.target.files && event.target.files[0]) {
@@ -39,6 +44,7 @@ export const Create_Post = () => {
       };
       const postUpload = await createNewPost(postDetails);
       if (postUpload?.data?.meta?.code === 200) {
+        dispatch(newPostCreated());
         setIsBackDropOpen((prev) => !prev);
         setIsStatus(0);
         setImage('');
@@ -60,12 +66,20 @@ export const Create_Post = () => {
     } else if (isStatus === 1) {
       return <CropImg image={image} setIsStatus={setIsStatus} />;
     } else if (isStatus === 2) {
-      return <AddFilter image={image} setFinalImage={setFinalImage} setIsStatus={setIsStatus} />;
-    } else if (isStatus === 3) {
       return (
         <AddFilter
+          image={image}
+          setFilterName={setFilterName}
+          setFinalImage={setFinalImage}
+          setIsStatus={setIsStatus}
+        />
+      );
+    } else if (isStatus === 3) {
+      return (
+        <Caption
           handleNewPost={handleNewPost}
           image={image}
+          filterName={filterName}
           setIsStatus={setIsStatus}
           setIsBackDropOpen={setIsBackDropOpen}
         />

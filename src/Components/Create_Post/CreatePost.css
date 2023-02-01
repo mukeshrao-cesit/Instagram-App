@@ -1,5 +1,5 @@
 .Upload-Container {
-  width: 500px;
+  width: 580px;
   background-color: white;
   border-radius: 5px;
   height: fit-content;
@@ -23,7 +23,6 @@
   margin-top: 25px;
 }
 .Uploaded-img img {
-  width: 450px;
   height: 300px;
 }
 .Upload-btn {
@@ -45,29 +44,36 @@
   border: 1px solid black;
   border-style: dotted;
 }
-.Crop-Container {
+.Filter-Container {
   width: 700px;
   background-color: white;
   border-radius: 5px;
   height: fit-content;
 }
+.filter-main-container {
+  display: grid;
+  grid-template-columns: 470px auto;
+}
 .FilterList {
-  width: 230px;
   height: 350px;
   display: flex;
   margin: 5px;
   overflow: scroll;
   flex-wrap: wrap;
 }
+.preview-img-container {
+  padding: 15px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
 #preview-filter-img {
-  width: 440px;
-  height: 350px;
-  margin-top: 10px;
+  height: 250px;
 }
 #filter-image {
-  width: 95px;
-  margin: 5px;
-  height: 104px;
+  width: 100px;
+  /* height: 104px; */
 }
 ::-webkit-scrollbar {
   display: none;
@@ -125,7 +131,8 @@
 .caption-container {
   margin-top: 10px;
   margin-left: 10px;
+  height: 360px;
 }
 .caption-container textarea {
-  height: 200px !important;
+  height: 300px !important;
 }

@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Create_Post } from './SideBar/Create_Post/Create_Post';
 import { Home } from './Home';
 
 function App() {
